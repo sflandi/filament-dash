@@ -42,6 +42,8 @@ class DashboardPanelProvider extends PanelProvider
             ->spa()
             ->brandName('Dashboard')
             ->sidebarCollapsibleOnDesktop()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -66,6 +68,24 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                ->gridColumns([
+                    'default' => 1,
+                    'sm' => 1,
+                    'lg' => 2
+                ])
+                ->sectionColumnSpan(1)
+                ->checkboxListColumns([
+                    'default' => 1,
+                    'sm' => 2,
+                    'lg' => 4,
+                ])
+                ->resourceCheckboxListColumns([
+                    'default' => 1,
+                    'sm' => 2,
+                ])
             ]);
     }
 }

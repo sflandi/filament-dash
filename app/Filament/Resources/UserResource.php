@@ -37,6 +37,12 @@ class UserResource extends Resource
                     ->revealable()
                     ->minLength(8)
                     ->required(),
+                Forms\Components\Select::make('role_id')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -46,6 +52,7 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('role_id')->sortable()->searchable(),
             ])
             ->filters([
                 //
